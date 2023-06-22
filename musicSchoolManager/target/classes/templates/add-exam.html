@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Swtorz nowy egzamin</title>
+</head>
+<body>
+<h1>Stórz nowy egzamin</h1>
+<form method="post" action="/exam/save" th:object="${exam}">
+    <label>
+        Kategoria
+        <input th:field="*{category}" name="category" id="category" type="text">
+    </label>
+    <label>
+        Grupa
+        <input th:field="*{instrumentGroup}" name="instrumentGroup" id="instrumentGroup" type="text">
+    </label>
+    <label>
+        Termin egzaminu
+        <input th:field="*{examDate}" name="examDate" id="examDate" type="datetime-local">
+    </label>
+    <button type="submit" name="submitButton" value="database" >Dodaj pytanie z bazy danych</button>
+    <button type="submit" name="submitButton" value="new">Dodaj nowe pytanie</button>
+</form>
+</body>
+</html>

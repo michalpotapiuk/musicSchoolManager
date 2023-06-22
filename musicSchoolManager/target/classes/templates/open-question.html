@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pytanie otwarte</title>
+</head>
+<body>
+<form class="container" method="post" action="/questions/save" th:object="${question}">
+    <h1>Pytanie Otwarte</h1>
+    <label>Treść pytania:
+        <input th:field="*{text}" type="text" placeholder="Treść pytania">
+    </label>
+    <label>Punktacja:
+        <input th:field="*{points}" type="number" name="punkty" min="0">
+    </label>
+    <label>Klucz obcy:
+        <input th:field="*{answerKey}" type="text" name="klucz" placeholder="Wprowadź klucz obcy">
+    </label>
+    <button value="create">Utwórz</button>
+</form>
+</body>
+</html>
