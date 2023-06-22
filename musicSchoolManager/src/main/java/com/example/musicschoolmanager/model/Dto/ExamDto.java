@@ -11,6 +11,8 @@ import java.util.List;
 @Setter
 @ToString
 public class ExamDto {
+
+    public Long id;
     private String category;
     private String instrumentGroup ;
     private LocalDateTime examDate;

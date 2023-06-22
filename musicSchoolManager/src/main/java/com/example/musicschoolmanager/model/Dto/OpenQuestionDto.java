@@ -4,12 +4,9 @@ import lombok.*;
 
 @Getter
 @Setter
+@RequiredArgsConstructor
 @ToString
 public class OpenQuestionDto extends QuestionDto {
     private String answerKey;
 
-
-    OpenQuestionDto(String text, Integer points) {
-        super(text, points);
-    }
 }

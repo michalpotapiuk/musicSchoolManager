@@ -1,16 +1,14 @@
 package com.example.musicschoolmanager.model.Dto;
 
-import com.example.musicschoolmanager.model.abstracts.Question;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder
+@RequiredArgsConstructor
 @ToString
 public abstract class QuestionDto {
+    private Long id;
     private String text;
     private Integer points;
 }
