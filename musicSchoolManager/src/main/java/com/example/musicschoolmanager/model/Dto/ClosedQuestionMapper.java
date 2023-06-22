@@ -5,18 +5,19 @@ import com.example.musicschoolmanager.model.ClosedQuestion;
 
 public class ClosedQuestionMapper{
 
-    public static ClosedQuestionDto map(ClosedQuestion closedQuestion) {
-        ClosedQuestionDto dto = new ClosedQuestionDto(closedQuestion.getText(),closedQuestion.getPoints());
-        dto.setPoints(closedQuestion.getPoints());
-        dto.setAnswers(closedQuestion.getAnswers());
-        dto.setCorrectAnswers(closedQuestion.getCorrectAnswers());
-        return dto;
+    public static ClosedQuestionDto toDTO(ClosedQuestion closedQuestion) {
+        ClosedQuestionDto closedQuestionDto = new ClosedQuestionDto();
+        closedQuestionDto.setId(closedQuestion.getId());
+        closedQuestionDto.setText(closedQuestion.getText());
+        closedQuestionDto.setAnswers(closedQuestion.getAnswers());
+        closedQuestionDto.setCorrectAnswers(closedQuestion.getCorrectAnswers());
+        return closedQuestionDto;
     }
 
-    public static ClosedQuestion map(ClosedQuestionDto closedQuestionDto) {
+    public static ClosedQuestion toEntity(ClosedQuestionDto closedQuestionDto) {
         ClosedQuestion closedQuestion = new ClosedQuestion();
+        closedQuestion.setId(closedQuestionDto.getId());
         closedQuestion.setText(closedQuestionDto.getText());
-        closedQuestion.setPoints(closedQuestionDto.getPoints());
         closedQuestion.setAnswers(closedQuestionDto.getAnswers());
         closedQuestion.setCorrectAnswers(closedQuestionDto.getCorrectAnswers());
         return closedQuestion;
