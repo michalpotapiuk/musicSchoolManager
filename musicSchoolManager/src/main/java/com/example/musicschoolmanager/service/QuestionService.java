@@ -1,7 +1,8 @@
 package com.example.musicschoolmanager.service;
 
-import com.example.musicschoolmanager.model.Dto.QuestionDto;
-import com.example.musicschoolmanager.model.Dto.QuestionDtoMapper;
+import com.example.musicschoolmanager.model.Dto.*;
+import com.example.musicschoolmanager.model.Exam;
+import com.example.musicschoolmanager.model.abstracts.Question;
 import com.example.musicschoolmanager.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,15 @@ public class QuestionService {
 
     public List<QuestionDto> findAllQuestions() {
         return questionRepository.findAll().stream()
-                .map(QuestionDtoMapper::map)
+                .map(QuestionDtoMapper::questionMapToDto)
                 .toList();
     }
+
+    public QuestionDto createQuestion(QuestionDto questionDto){
+        Question question = QuestionDtoMapper.questionMapToEntity(questionDto);
+        Question savedQuestion = questionRepository.save(question);
+        return QuestionDtoMapper.questionMapToDto(savedQuestion);
+    }
+
 
 }

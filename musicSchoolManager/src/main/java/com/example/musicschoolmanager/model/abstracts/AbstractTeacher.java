@@ -14,7 +14,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -28,10 +30,10 @@ public abstract class AbstractTeacher extends Person {
     private BigDecimal salaryPerHour;
 
     @OneToMany(mappedBy = "abstractTeacher", orphanRemoval = true)
-    private List<Realization> realizations = new ArrayList<>();
+    private Set<Realization> realizations = new HashSet<>();
 
     @OneToMany(mappedBy = "teacher")
-    private List<TeacherClasses> teacherClasses = new ArrayList<>();
+    private Set<TeacherClasses> teacherClasses = new HashSet<>();
 
     public int getSeniority(){
          return Period.between(employmentDate, LocalDate.now()).getYears();

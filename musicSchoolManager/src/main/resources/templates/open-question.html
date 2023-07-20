@@ -5,18 +5,18 @@
     <title>Pytanie otwarte</title>
 </head>
 <body>
-<form class="container" method="post" action="/questions/save" th:object="${question}">
+<form class="container" method="post" action="/questions/saveOpenQuestion" th:object="${question}">
     <h1>Pytanie Otwarte</h1>
     <label>Treść pytania:
-        <input th:field="*{text}" type="text" placeholder="Treść pytania">
+        <input th:field="*{text}" type="text" placeholder="Treść pytania" required>
     </label>
     <label>Punktacja:
-        <input th:field="*{points}" type="number" name="punkty" min="0">
+        <input th:field="*{points}" type="number" name="punkty" min="0" max="5" required>
     </label>
     <label>Klucz obcy:
-        <input th:field="*{answerKey}" type="text" name="klucz" placeholder="Wprowadź klucz obcy">
+        <input th:field="*{answerKey}" type="text" name="klucz" placeholder="Wprowadź klucz obcy" maxlength="250">
     </label>
-    <button value="create">Utwórz</button>
+    <button type="submit" name="submitButton">Utwórz</button>
 </form>
 </body>
 </html>

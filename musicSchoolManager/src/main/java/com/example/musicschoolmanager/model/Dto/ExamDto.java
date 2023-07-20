@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -16,6 +17,6 @@ public class ExamDto {
     private String category;
     private String instrumentGroup ;
     private LocalDateTime examDate;
-    private List<QuestionDto> questions;
+    private Set<QuestionDto> questions;
 
 }

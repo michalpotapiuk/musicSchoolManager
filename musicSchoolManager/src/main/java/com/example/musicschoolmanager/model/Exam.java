@@ -10,7 +10,9 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -18,6 +20,7 @@ import java.util.List;
 @Getter
 @Setter
 public class Exam {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,9 +30,14 @@ public class Exam {
     private LocalDateTime examDate;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
-    private List<Question> questions = new ArrayList<>();
+    @JoinTable(
+            name = "exam_question",
+            joinColumns = @JoinColumn(name = "exam_id"),
+            inverseJoinColumns = @JoinColumn(name = "question_id"))
+    private Set<Question> questions = new HashSet<>();
 
     @OneToMany(mappedBy = "exam", orphanRemoval = true)
-    private List<Participation> participations = new ArrayList<>();
+    private Set<Participation> participations = new HashSet<>();
+
 
 }

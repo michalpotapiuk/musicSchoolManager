@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -24,6 +24,5 @@ public abstract class Question {
     private Integer points;
 
     @ManyToMany(mappedBy = "questions", cascade = CascadeType.PERSIST)
-    private List<Exam> exams = new ArrayList<>();
-
+    private Set<Exam> exams = new HashSet<>();
 }

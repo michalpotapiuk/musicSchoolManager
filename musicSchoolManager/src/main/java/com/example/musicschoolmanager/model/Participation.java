@@ -14,11 +14,11 @@ public class Participation {
     private Long id;
     private Boolean passed;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "exam_id")
     private Exam exam;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
 

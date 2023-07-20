@@ -9,7 +9,9 @@ import lombok.Setter;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -23,14 +25,14 @@ public class Track {
     private Long id;
     private String title;
     @ElementCollection
-    @JoinColumn(name = "track_author")
-    private List<String> authorities;
+    @JoinColumn(name = "track_authorities")
+    private List<String> authorities = new ArrayList<>();
     @Column(name = "length")
     private Duration trackLength;
     @Column(name = "difficultyType")
     private DifficultyType difficultyType;
 
     @ManyToMany(mappedBy = "tracks")
-    private List<Band> bands = new ArrayList<>();
+    private Set<Band> bands = new HashSet<>();
 
 }

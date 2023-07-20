@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Formularz</title>
+</head>
+<body>
+<h1>Pytanie zamknięte</h1>
+<form class="container" method="post" action="/questions/saveClosedQuestion" th:object="${question}">
+  <label>Tekst:
+    <input th:field="*{text}" type="text" required>
+  </label>
+  <label>Punktacja:
+    <input th:field="*{points}" type="number" min="0" max="5" required>
+  </label>
+  <h2>Odpowiedzi:</h2>
+  <table id="correctAnswersTable">
+    <tbody>
+    <tr>
+      <td>
+        <label>
+          <input th:field="*{correctAnswers}" type="checkbox" th:value="${question.correctAnswers}" onchange="handleCheckboxChange(this)">
+          <input th:field="*{answers}" type="text" id="answer1" name="odpowiedziTekst" placeholder="Odpowiedź 1">
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label>
+          <input th:field="*{correctAnswers}" type="checkbox" th:value="${question.correctAnswers}" onchange="handleCheckboxChange(this)">
+          <input th:field="*{answers}" type="text" id="answer2" name="odpowiedziTekst" placeholder="Odpowiedź 2">
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label>
+          <input th:field="*{correctAnswers}" type="checkbox" th:value="${question.correctAnswers}" onchange="handleCheckboxChange(this)">
+          <input th:field="*{answers}" type="text" id="answer3" name="odpowiedziTekst" placeholder="Odpowiedź 3">
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label>
+          <input th:field="*{correctAnswers}" type="checkbox" th:value="${question.correctAnswers}" onchange="handleCheckboxChange(this)">
+          <input th:field="*{answers}" type="text" id="answer4" name="odpowiedziTekst" placeholder="Odpowiedź 4" required>
+        </label>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <button type="submit">Utwórz</button>
+</form>
+</body>
+</html>

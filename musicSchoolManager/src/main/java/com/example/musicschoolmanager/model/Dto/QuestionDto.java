@@ -4,7 +4,6 @@ import lombok.*;
 
 @Getter
 @Setter
-@Builder
 @RequiredArgsConstructor
 @ToString
 public abstract class QuestionDto {

@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "band")
 @NoArgsConstructor
@@ -28,11 +30,15 @@ public class Band {
     public static final int maximumNumberOfParticipants = 6;
 
     @OneToMany(mappedBy = "band", orphanRemoval = true)
-    private List<Realization> realizations = new ArrayList<>();
+    private Set<Realization> realizations = new HashSet<>();
 
     @ManyToMany
-    private List<Track> tracks = new ArrayList<>();
+    @JoinTable(
+            name = "band_track",
+            joinColumns = @JoinColumn(name = "band_id"),
+            inverseJoinColumns = @JoinColumn(name = "track_id"))
+    private Set<Track> tracks = new HashSet<>();
 
     @ManyToMany(mappedBy = "bands")
-    private List<Student> students = new ArrayList<>();
+    private Set<Student> students = new HashSet<>();
 }

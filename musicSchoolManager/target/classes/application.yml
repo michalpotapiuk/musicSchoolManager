@@ -2,16 +2,13 @@ spring:
   mvc:
     static-path-pattern: /static/**
   datasource:
-    url: jdbc:mysql://localhost:3306/musicschoolmanager?useSSL=false&serverTimezone=Europe/Warsaw
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
+    url: jdbc:mysql://localhost:3306/musicschoolmanager
+    username: aaaa
     password: admin
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
-  cassandra:
-    port: 8080
+      ddl-auto: create
   web:
     resources:
       static-locations: classpath:/static/

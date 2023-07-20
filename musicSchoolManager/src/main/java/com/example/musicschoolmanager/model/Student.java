@@ -4,10 +4,7 @@ import com.example.musicschoolmanager.model.abstracts.Person;
 import com.example.musicschoolmanager.model.enums.DegreeType;
 import com.example.musicschoolmanager.model.enums.InstrumentType;
 import com.example.musicschoolmanager.model.enums.YearType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +12,9 @@ import lombok.Setter;
 import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -30,11 +29,15 @@ public class Student extends Person {
     private DegreeType degreeType;
 
     @OneToMany(mappedBy = "student", orphanRemoval = true)
-    private List<Participation> participations = new ArrayList<>();
+    private Set<Participation> participations = new HashSet<>();
 
     @ManyToMany
-    private List<Band> bands = new ArrayList<>();
+    @JoinTable(
+            name = "student_band",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "band_id"))
+    private Set<Band> bands = new HashSet<>();
 
     @OneToMany(mappedBy = "student")
-    private List<TeacherClasses> teacherClasses = new ArrayList<>();
+    private Set<TeacherClasses> teacherClasses = new HashSet<>();
 }
