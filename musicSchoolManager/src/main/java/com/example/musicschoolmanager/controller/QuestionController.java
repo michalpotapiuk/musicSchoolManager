@@ -21,25 +21,36 @@ public class QuestionController {
     private final ExamService examService;
 
 
-    @GetMapping("/getDatabaseQuestions")
-    public String getAllQuestionsFromDatabase(Model model){
-        List<QuestionDto> question = questionService.findAllQuestions();
-        model.addAttribute("question", question);
-        return "add-database-questions";
+    @GetMapping("/chooseType/{examId}")
+    public String chooseType(@PathVariable Long examId, Model model){
+        model.addAttribute("id", examId);
+        return "choose-question-type-databases";
     }
 
-    //TODO KTO WIE CO Z TYM ZREOBIC ?????
-/*    @PostMapping("/addChooseQuestion")
-    public String addQuestionToExamFromDatabase(@RequestBody List<QuestionDto> selectedQuestions,
-                                                @RequestBody Long examId){
-        ExamDto exam = examService.findExamById(examId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        exam.setQuestions(selectedQuestions);
+    @GetMapping("/getDatabaseOpenQuestions")
+    public String getAllOpenQuestionsFromDatabase(@RequestParam Long examId, Model model){
+        List<OpenQuestionDto> openQuestionDtos = questionService.findAllOpenQuestions();
+        model.addAttribute("question", openQuestionDtos);
+        model.addAttribute("examId", examId);
+        return "add-database-OpenQuestions";
+    }
 
+    @GetMapping("/getDatabaseQuestions")
+    public String getAllQuestionsFromDatabase(@RequestParam Long examId, Model model){
+        List<QuestionDto> questionDtos = questionService.findAllQuestions();
+        model.addAttribute("question", questionDtos);
+        model.addAttribute("examId", examId);
+        return "add-database-OpenQuestions";
+    }
 
-        return "redirect:";
-    }*/
+    @GetMapping("/getDatabaseClosedQuestions")
+    public String getAllClosedQuestionsFromDatabase(@RequestParam Long examId, Model model){
+        List<ClosedQuestionDto> closedQuestionDtos = questionService.findAllClosedQuestions();
+        model.addAttribute("question", closedQuestionDtos);
+        model.addAttribute("examId", examId);
+        return "add-database-ClosedQuestions";
+    }
 
     @GetMapping("/chooseQuestionType")
     public String chooseQuestionType(){
@@ -59,7 +70,6 @@ public class QuestionController {
         model.addAttribute("question", new ClosedQuestionDto());
         return "closed-question";
     }
-
 
 
     //TODO Post Method for Questions

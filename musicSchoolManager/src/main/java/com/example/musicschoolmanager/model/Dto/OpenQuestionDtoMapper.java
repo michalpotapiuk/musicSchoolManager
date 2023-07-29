@@ -7,8 +7,8 @@ public class OpenQuestionDtoMapper {
         OpenQuestionDto openQuestionDto = new OpenQuestionDto();
         openQuestionDto.setId(openQuestion.getId());
         openQuestionDto.setText(openQuestion.getText());
-        openQuestionDto.setPoints(openQuestionDto.getPoints());
-        openQuestionDto.setAnswerKey(openQuestionDto.getAnswerKey());
+        openQuestionDto.setPoints(openQuestion.getPoints());
+        openQuestionDto.setAnswerKey(openQuestion.getAnswerKey());
         return openQuestionDto;
     }
 

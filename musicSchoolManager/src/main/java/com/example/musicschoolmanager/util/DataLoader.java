@@ -65,10 +65,10 @@ public class DataLoader implements ApplicationRunner {
         closedQuestion.setPoints(5);
 
 // Ustawianie relacji między pytaniem a egzaminem
-        openQuestion.getExams().add(exam);
-        closedQuestion.getExams().add(exam);
-        exam.getQuestions().add(openQuestion);
-        exam.getQuestions().add(closedQuestion);
+//        openQuestion.getExams().add(exam);
+//        closedQuestion.getExams().add(exam);
+//        exam.getQuestions().add(openQuestion);
+//        exam.getQuestions().add(closedQuestion);
 
         // Zapisywanie danych w bazie danych
         questionRepository.save(openQuestion);

@@ -1,19 +1,17 @@
 package com.example.musicschoolmanager.service;
 
-import com.example.musicschoolmanager.model.Dto.ExamDto;
-import com.example.musicschoolmanager.model.Dto.ExamDtoMapper;
-import com.example.musicschoolmanager.model.Dto.QuestionDto;
-import com.example.musicschoolmanager.model.Dto.QuestionDtoMapper;
+import com.example.musicschoolmanager.model.Dto.*;
 import com.example.musicschoolmanager.model.Exam;
 import com.example.musicschoolmanager.model.abstracts.Question;
 import com.example.musicschoolmanager.repository.ExamRepository;
 import com.example.musicschoolmanager.repository.QuestionRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -28,33 +26,30 @@ public class ExamService {
         return ExamDtoMapper.map(savedExam);
     }
 
-    public Optional<Exam> getExamById(Long id) {
+    public Optional<Exam> findById(Long id) {
         Optional<Exam> examOptional = examRepository.findById(id);
         return examOptional;
     }
 
-    @Transactional
-    public void addQuestionToExam(Long examId, QuestionDto questionDto) {
+//    @Transactional
+//    public void addOpenQuestionToExam(Exam exam, OpenQuestionDto openQuestionDto) {
+//        exam.getQuestions().add(QuestionDtoMapper.questionMapToEntity(openQuestionDto));
+//        examRepository.save(exam);
+//    }
 
-        Optional<Exam> examOptional = examRepository.findById(examId);
-        if (examOptional.isEmpty()){
-            throw new RuntimeException();
+    @Transactional
+    public void addQuestionToExam(Exam exam, Set<Question> questions) {
+
+        Set<QuestionDto> questionDtos = new HashSet<>();
+        for (Question question : questions){
+            questionDtos.add(QuestionDtoMapper.map(question));
         }
 
-        Exam exam = examOptional.get();
-
-        Question question = QuestionDtoMapper.questionMapToEntity(questionDto);
-        question.setText(questionDto.getText());
-        question.setPoints(questionDto.getPoints());
-
-        exam.getQuestions().add(question);
-        question.getExams().add(exam);
-
+        for (QuestionDto question : questionDtos){
+            exam.getQuestions().add(QuestionDtoMapper.map(question));
+        }
         examRepository.save(exam);
     }
-
-
-    
 
 
 

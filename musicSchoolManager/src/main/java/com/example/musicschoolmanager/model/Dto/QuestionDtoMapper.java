@@ -12,7 +12,7 @@ public class QuestionDtoMapper {
     public static Set<QuestionDto> toDTOList(Set<Question> questions) {
         Set<QuestionDto> questionDTOs = new HashSet<>();
         for (Question question : questions) {
-            questionDTOs.add(questionMapToDto(question));
+            questionDTOs.add(map(question));
         }
         return questionDTOs;
     }
@@ -22,12 +22,12 @@ public class QuestionDtoMapper {
             return Collections.emptySet();
         }
         return questionDtos.stream()
-                .map(QuestionDtoMapper::questionMapToEntity)
+                .map(QuestionDtoMapper::map)
                 .collect(Collectors.toSet());
     }
 
 
-    public static Question questionMapToEntity(QuestionDto questionDto) {
+    public static Question map(QuestionDto questionDto) {
         if (questionDto instanceof OpenQuestionDto) {
             return OpenQuestionDtoMapper.map((OpenQuestionDto) questionDto);
         } else if (questionDto instanceof ClosedQuestionDto) {
@@ -38,7 +38,7 @@ public class QuestionDtoMapper {
     }
 
 
-    public static QuestionDto questionMapToDto(Question question) {
+    public static QuestionDto map(Question question) {
         if (question instanceof OpenQuestion) {
             return OpenQuestionDtoMapper.map((OpenQuestion) question);
         } else if (question instanceof ClosedQuestion) {

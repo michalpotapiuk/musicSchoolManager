@@ -25,7 +25,7 @@ public class Track {
     private Long id;
     private String title;
     @ElementCollection
-    @JoinColumn(name = "track_authorities")
+    @JoinColumn(name = "track_authors")
     private List<String> authorities = new ArrayList<>();
     @Column(name = "length")
     private Duration trackLength;

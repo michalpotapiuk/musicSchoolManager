@@ -18,7 +18,7 @@ import java.util.Set;
 public abstract class Question {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String text;
     private Integer points;
