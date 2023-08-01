@@ -5,7 +5,7 @@
     <title>Pytanie otwarte</title>
 </head>
 <body>
-<form class="container" method="post" action="/questions/saveOpenQuestion" th:object="${question}">
+<form class="container"  th:action="@{/questions/{examId}/saveOpenQuestion(examId=${examId})}" method="post" th:object="${question}">
     <h1>Pytanie Otwarte</h1>
     <label>Treść pytania:
         <input th:field="*{text}" type="text" placeholder="Treść pytania" required>

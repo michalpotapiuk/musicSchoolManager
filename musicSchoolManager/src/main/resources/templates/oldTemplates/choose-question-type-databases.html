@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Wybierz typ pytania</h1>
-
+<!--NA RAZIE TEGO NIE UZYWAMY, MOZE W PRZYSZLOSCI BEDZIEMY-->
 <form th:action="@{/questions/getDatabaseQuestions}" method="get">
   <input type="hidden" name="examId" th:value="${examId}" />
   <button type="submit">Pytania otwarte</button>
@@ -14,6 +14,6 @@
 <form th:action="@{/questions/getDatabaseClosedQuestions}" method="get">
   <input type="hidden" name="examId" th:value="${examId}" />
   <button type="submit">Pytania zamknięte</button>
-  </form>
+</form>
 </body>
 </html>

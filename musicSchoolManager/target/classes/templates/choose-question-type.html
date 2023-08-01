@@ -5,8 +5,14 @@
     <title>Wybierz typ pytania</title>
 </head>
 <body>
-    <h1>Wybierz typ pytania</h1>
-        <button type="button" onclick="window.location.href='/questions/openQuestion'">Pytanie otwarte</button>
-        <button type="button">Pytanie zamknięte</button>
+<h1>Wybierz typ pytania</h1>
+<form th:action="@{/questions/createOpenQuestion}" method="get">
+    <input type="hidden" name="examId" th:value="${examId}" />
+    <button type="submit">Pytania otwarte</button>
+</form>
+<form th:action="@{/questions/createClosedQuestion}" method="get">
+    <input type="hidden" name="examId" th:value="${examId}" />
+    <button type="submit">Pytania zamknięte</button>
+</form>
 </body>
 </html>

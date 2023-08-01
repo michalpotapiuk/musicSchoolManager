@@ -24,23 +24,10 @@ public class QuestionService {
         return questionRepository.findAllById(id).stream().collect(Collectors.toSet());
     }
 
-
-    public OpenQuestionDto getOpenQuestionById(Long id){
-        Optional<OpenQuestionDto> openQuestionDtoOptional = openQuestionRepository.findById(id)
-                                                                .map(OpenQuestionDtoMapper::map);
-        return openQuestionDtoOptional.get();
-    }
-
     public QuestionDto createQuestion(QuestionDto questionDto){
         Question question = QuestionDtoMapper.map(questionDto);
         Question savedQuestion = questionRepository.save(question);
         return QuestionDtoMapper.map(savedQuestion);
-    }
-
-    public List<OpenQuestionDto> findAllOpenQuestions() {
-        return openQuestionRepository.findAll().stream()
-                .map(OpenQuestionDtoMapper::map)
-                .toList();
     }
 
     public List<QuestionDto> findAllQuestions(){
@@ -49,9 +36,13 @@ public class QuestionService {
                 .toList();
     }
 
-    public List<ClosedQuestionDto> findAllClosedQuestions() {
-        return closedQuestionRepository.findAll().stream()
-                .map(ClosedQuestionMapper::map)
-                .toList();
+    public QuestionDto findQuestionById(Long id){
+        Optional<Question> optionalQuestion = questionRepository.findById(id);
+        Question question = optionalQuestion.get();
+        return QuestionDtoMapper.map(question);
+
+    }
+    public boolean checkIfQuestionExists(){
+        return !questionRepository.findAll().isEmpty();
     }
 }

@@ -53,7 +53,7 @@ public class DataLoader implements ApplicationRunner {
         exam.setInstrumentGroup("Skrzypce");
         exam.setExamDate(LocalDateTime.now());
 
-// Tworzenie otwartego pytania
+//// Tworzenie otwartego pytania
         OpenQuestion openQuestion = new OpenQuestion();
         openQuestion.setText("Jak nazywa się twórca symfonii No. 9 'Z nowego świata'?");
         openQuestion.setPoints(10);
@@ -64,11 +64,6 @@ public class DataLoader implements ApplicationRunner {
         closedQuestion.setText("Który z tych kompozytorów jest autorem 'Eroiki'?");
         closedQuestion.setPoints(5);
 
-// Ustawianie relacji między pytaniem a egzaminem
-//        openQuestion.getExams().add(exam);
-//        closedQuestion.getExams().add(exam);
-//        exam.getQuestions().add(openQuestion);
-//        exam.getQuestions().add(closedQuestion);
 
         // Zapisywanie danych w bazie danych
         questionRepository.save(openQuestion);

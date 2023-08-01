@@ -2,6 +2,9 @@ package com.example.musicschoolmanager.controller;
 
 
 import com.example.musicschoolmanager.model.Dto.ExamDto;
+import com.example.musicschoolmanager.model.Dto.ExamDtoMapper;
+import com.example.musicschoolmanager.model.Dto.QuestionDto;
+import com.example.musicschoolmanager.model.Dto.QuestionDtoMapper;
 import com.example.musicschoolmanager.model.Exam;
 import com.example.musicschoolmanager.model.abstracts.Question;
 import com.example.musicschoolmanager.service.ExamService;
@@ -42,48 +45,18 @@ public class ExamController {
                                    @RequestParam(required = false, defaultValue = "default") String submitButton) {
         ExamDto exam = examService.createExam(examDto);
         if (submitButton.equals("database")) {
-            return "redirect:/questions/chooseType/" + exam.id;
+            if (questionService.checkIfQuestionExists()){
+                return "redirect:/questions/getDatabaseQuestions/" + exam.id;
+            }else{
+                return "redirect:/questions/error";
+            }
         } else {
-            return "redirect:/questions/chooseQuestionType";
+            return "redirect:/questions/chooseQuestionType/" + exam.id;
         }
     }
-
-    @PostMapping("/{examId}/addOpenQuestionToExam")
-    public String addOpenQuestionToExam(
-            @PathVariable(value = "examId") Long examId,
-            @RequestParam("selectedQuestions") Set<Long> selectedQuestionIds) {
-
-        Optional<Exam> optionalExam = examService.findById(examId);
-
-        if (optionalExam.isPresent()) {
-            Exam exam = optionalExam.get();
-            Set<Question> selectedQuestions = questionService.findAllQuestionsById(selectedQuestionIds);
-            exam.setQuestions(selectedQuestions);
-            examService.addQuestionToExam(exam,selectedQuestions);
-        }
-
-        return "redirect:/exam/examView";
-    }
-
-    @PostMapping("/{examId}/addClosedQuestionToExam")
-    public String addClosedQuestionToExam(
-            @PathVariable(value = "examId") Long examId,
-            @RequestParam("selectedQuestions") Set<Long> selectedQuestionIds) {
-
-        Optional<Exam> optionalExam = examService.findById(examId);
-
-        if (optionalExam.isPresent()) {
-            Exam exam = optionalExam.get();
-            Set<Question> selectedQuestions = questionService.findAllQuestionsById(selectedQuestionIds);
-            exam.setQuestions(selectedQuestions);
-            examService.addQuestionToExam(exam,selectedQuestions);
-        }
-        return "redirect:/exam/examView";
-    }
-
 
     @PostMapping("/{examId}/addQuestionToExam")
-    public String addQuestionToExam(
+    public String addQuestionFromDatabaseToExam(
             @PathVariable(value = "examId") Long examId,
             @RequestParam("selectedQuestions") Set<Long> selectedQuestionIds) {
 
@@ -94,6 +67,20 @@ public class ExamController {
             Set<Question> selectedQuestions = questionService.findAllQuestionsById(selectedQuestionIds);
             exam.setQuestions(selectedQuestions);
             examService.addQuestionToExam(exam,selectedQuestions);
+        }
+        return "redirect:/exam/examView";
+    }
+
+    @GetMapping("/{examId}/addNewQuestionToExam/{questionId}")
+    public String addCreatedQuestionToExam(
+            @PathVariable(value = "examId") Long examId,
+            @PathVariable(value = "questionId") Long id){
+        Optional<Exam> optionalExam = examService.findById(examId);
+
+        if (optionalExam.isPresent()) {
+            Exam exam = optionalExam.get();
+            QuestionDto selectedQuestions = questionService.findQuestionById(id);
+            examService.addNewQuestionToExam(ExamDtoMapper.map(exam),selectedQuestions);
         }
         return "redirect:/exam/examView";
     }

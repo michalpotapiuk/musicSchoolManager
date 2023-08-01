@@ -31,12 +31,6 @@ public class ExamService {
         return examOptional;
     }
 
-//    @Transactional
-//    public void addOpenQuestionToExam(Exam exam, OpenQuestionDto openQuestionDto) {
-//        exam.getQuestions().add(QuestionDtoMapper.questionMapToEntity(openQuestionDto));
-//        examRepository.save(exam);
-//    }
-
     @Transactional
     public void addQuestionToExam(Exam exam, Set<Question> questions) {
 
@@ -44,13 +38,22 @@ public class ExamService {
         for (Question question : questions){
             questionDtos.add(QuestionDtoMapper.map(question));
         }
-
         for (QuestionDto question : questionDtos){
             exam.getQuestions().add(QuestionDtoMapper.map(question));
         }
         examRepository.save(exam);
     }
 
+    @Transactional
+    public void addNewQuestionToExam(ExamDto examDto, QuestionDto questionDto) {
+        Question mappedQuestion = QuestionDtoMapper.map(questionDto);
+        Exam exam = ExamDtoMapper.map(examDto);
+        Set<Question> questions = new HashSet<>();
+        questions.add(mappedQuestion);
 
-
+        for (Question question : questions){
+            exam.getQuestions().add(question);
+        }
+        examRepository.save(exam);
+    }
 }
