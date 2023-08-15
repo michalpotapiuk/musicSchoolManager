@@ -3,20 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Pytanie otwarte</title>
+    <link rel="stylesheet" href="/static/stylesheet.css">
 </head>
 <body>
-<form class="container"  th:action="@{/questions/{examId}/saveOpenQuestion(examId=${examId})}" method="post" th:object="${question}">
+<div class="container">
     <h1>Pytanie Otwarte</h1>
-    <label>Treść pytania:
-        <input th:field="*{text}" type="text" placeholder="Treść pytania" required>
-    </label>
-    <label>Punktacja:
-        <input th:field="*{points}" type="number" name="punkty" min="0" max="5" required>
-    </label>
-    <label>Klucz obcy:
-        <input th:field="*{answerKey}" type="text" name="klucz" placeholder="Wprowadź klucz obcy" maxlength="250">
-    </label>
-    <button type="submit" name="submitButton">Utwórz</button>
-</form>
+    <form th:action="@{/questions/{examId}/saveOpenQuestion(examId=${examId})}" method="post" th:object="${question}">
+        <label>Treść pytania:</label>
+        <label>
+            <input th:field="*{text}" type="text" placeholder="Treść pytania" required>
+        </label>
+
+        <label>Punktacja:</label>
+        <label>
+            <input th:field="*{points}" type="number" name="punkty" min="0" max="5" required>
+        </label>
+
+        <label>Klucz obcy:</label>
+        <label>
+            <input th:field="*{answerKey}" type="text" name="klucz" placeholder="Wprowadź klucz obcy" maxlength="250">
+        </label>
+
+        <button type="submit" name="submitButton">Utwórz</button>
+    </form>
+</div>
 </body>
 </html>

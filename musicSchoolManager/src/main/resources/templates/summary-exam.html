@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Egzamin</title>
+    <link rel="stylesheet" href="/static/summary.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="underlined">Egzamin</h1>
+    <div class="info-section">
+        <div class="info-left">
+            <div class="input-label">
+                <label>Kategoria</label>
+                <label th:text="${exam.category}" type="text"></label>
+            </div>
+            <div class="input-label">
+                <label>Grupa</label>
+                <label th:text="${exam.instrumentGroup}" type="text"></label>
+            </div>
+            <div class="input-label">
+                <label>Termin egzaminu</label>
+                <label th:text="${#temporals.format(exam.examDate, 'yyyy-MM-dd HH:mm:ss')}" type="text"></label>
+            </div>
+        </div>
+        <div class="info-right">
+            <div class="input-label">
+                <label>Pytania do egzaminu:</label>
+            </div>
+            <div class="table-wrapper">
+                <table class="question-table">
+                    <tbody>
+                    <tr th:each="question, questionStatus : ${questions}">
+                        <td th:text="${questionStatus.index + 1}" class="first-column"></td>
+                        <td th:text="${question.text}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="buttons-container">
+        <form th:action="@{/exam/chooseQuestionsTypeToAdd/{examId} (examId=${examId})}" method="get">
+            <input type="hidden" name="examId" th:value="${examId}" />
+            <button class="bottom-button" type="submit">Dodaj nowe pytanie do egzaminu</button>
+        </form>
+        <form th:action="@{/exam/created}" method="get">
+            <button class="bottom-button" type="submit">Zakończ egzamin</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

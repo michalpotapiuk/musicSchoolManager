@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Błąd!</title>
+    <link rel="stylesheet" href="/static/stylesheet.css">
 </head>
 <body>
-<h1>Ehhh.....</h1>
+<div class="container">
+    <h1>Błąd!</h1>
+    <p>W bazie danych nie ma żadnego pytania</p>
+
+    <form th:action="@{/exam/chooseQuestionsTypeToAdd/{examId} (examId=${examId})}" method="get">
+        <input type="hidden" name="examId" th:value="${examId}" />
+        <button type="submit">Powrót</button>
+    </form>
+</div>
 </body>
 </html>

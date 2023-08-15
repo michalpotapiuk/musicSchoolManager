@@ -1,27 +1,27 @@
 package com.example.musicschoolmanager.service;
 
-import com.example.musicschoolmanager.model.Dto.*;
+import com.example.musicschoolmanager.model.Dto.QuestionDto;
+import com.example.musicschoolmanager.model.Dto.QuestionDtoMapper;
+import com.example.musicschoolmanager.model.Exam;
 import com.example.musicschoolmanager.model.abstracts.Question;
-import com.example.musicschoolmanager.repository.ClosedQuestionRepository;
-import com.example.musicschoolmanager.repository.OpenQuestionRepository;
+import com.example.musicschoolmanager.repository.ExamRepository;
 import com.example.musicschoolmanager.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class QuestionService {
     private final QuestionRepository questionRepository;
-    private final OpenQuestionRepository openQuestionRepository;
-    private final ClosedQuestionRepository closedQuestionRepository;
+    private final ExamRepository examRepository;
 
-    public Set<Question> findAllQuestionsById(Set<Long> id) {
-        return questionRepository.findAllById(id).stream().collect(Collectors.toSet());
+    public Set<QuestionDto> findAllQuestionsById(Set<Long> id) {
+        Set<Question> questions = new HashSet<>(questionRepository.findAllById(id));
+        return QuestionDtoMapper.toDTOList(questions);
     }
 
     public QuestionDto createQuestion(QuestionDto questionDto){
@@ -37,10 +37,16 @@ public class QuestionService {
     }
 
     public QuestionDto findQuestionById(Long id){
-        Optional<Question> optionalQuestion = questionRepository.findById(id);
-        Question question = optionalQuestion.get();
+        Question question = questionRepository.findById(id).orElse(null);
         return QuestionDtoMapper.map(question);
+    }
 
+    public Set<QuestionDto> findAllExamsQuestions(Long examId){
+        Exam exam = examRepository.findById(examId).orElse(null);
+        if (exam != null) {
+             return QuestionDtoMapper.toDTOList(new HashSet<>(questionRepository.findByExamsId(examId)));
+        }
+        return null;
     }
     public boolean checkIfQuestionExists(){
         return !questionRepository.findAll().isEmpty();

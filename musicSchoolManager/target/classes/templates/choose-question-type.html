@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Wybierz typ pytania</title>
+    <link rel="stylesheet" href="/static/stylesheet.css">
 </head>
 <body>
-<h1>Wybierz typ pytania</h1>
-<form th:action="@{/questions/createOpenQuestion}" method="get">
-    <input type="hidden" name="examId" th:value="${examId}" />
-    <button type="submit">Pytania otwarte</button>
-</form>
-<form th:action="@{/questions/createClosedQuestion}" method="get">
-    <input type="hidden" name="examId" th:value="${examId}" />
-    <button type="submit">Pytania zamknięte</button>
-</form>
+<div class="container">
+    <h1>Wybierz typ pytania</h1>
+    <form th:action="@{/questions/createOpenQuestion}" method="get">
+        <input type="hidden" name="examId" th:value="${examId}" />
+        <button type="submit">Pytania otwarte</button>
+    </form>
+    <form th:action="@{/questions/createClosedQuestion}" method="get">
+        <input type="hidden" name="examId" th:value="${examId}" />
+        <button type="submit">Pytania zamknięte</button>
+    </form>
+</div>
 </body>
 </html>

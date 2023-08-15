@@ -3,7 +3,6 @@ package com.example.musicschoolmanager.controller;
 import com.example.musicschoolmanager.model.Dto.ClosedQuestionDto;
 import com.example.musicschoolmanager.model.Dto.OpenQuestionDto;
 import com.example.musicschoolmanager.model.Dto.QuestionDto;
-import com.example.musicschoolmanager.service.ExamService;
 import com.example.musicschoolmanager.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,11 +17,13 @@ import java.util.List;
 @RequestMapping("/questions")
 public class QuestionController {
     private final QuestionService questionService;
-    private final ExamService examService;
 
     @GetMapping("/getDatabaseQuestions/{examId}")
     public String getAllQuestionsFromDatabase(@PathVariable Long examId, Model model){
         List<QuestionDto> questionDtos = questionService.findAllQuestions();
+        if (questionDtos.isEmpty()){
+            return "redirect:/questions/error/" + examId;
+        }
         model.addAttribute("question", questionDtos);
         model.addAttribute("examId", examId);
         return "add-database-questions";
@@ -34,13 +35,12 @@ public class QuestionController {
         return "choose-question-type";
     }
 
-    @GetMapping("/error")
-    public String doesntExistsQuestionInDatabase(){
+    @GetMapping("/error/{examId}")
+    public String doesntExistsQuestionInDatabase(@PathVariable Long examId,Model model){
+        model.addAttribute("examId", examId);
         return "doesnt-exsists-question";
     }
 
-
-    //TODO Get Mapping for Questions
     @GetMapping("/createOpenQuestion")
     public String createOpenQuestion(@RequestParam Long examId, Model model){
         model.addAttribute("question", new OpenQuestionDto());
@@ -49,13 +49,12 @@ public class QuestionController {
     }
 
     @GetMapping("/createClosedQuestion")
-    public String createClosedQuestion(Model model){
+    public String createClosedQuestion(@RequestParam Long examId,Model model){
         model.addAttribute("question", new ClosedQuestionDto());
+        model.addAttribute("examId", examId);
         return "closed-question";
     }
 
-
-    //TODO Post Method for Questions
     @PostMapping("/{examId}/saveOpenQuestion")
     public String saveOpenQuestion(@ModelAttribute("question") OpenQuestionDto openQuestionDto,
                                    @PathVariable(value = "examId") Long examId,
@@ -66,13 +65,14 @@ public class QuestionController {
         return "redirect:/exam/{examId}/addNewQuestionToExam/" + questionDto.getId();
     }
 
-    @PostMapping("/saveClosedQuestion")
+    @PostMapping("/{examId}/saveClosedQuestion")
     public String saveClosedQuestion(@ModelAttribute("question") ClosedQuestionDto closedQuestionDto,
+                                     @PathVariable(value = "examId") Long examId,
                                      @RequestParam(value = "text") String text,
                                      @RequestParam(value = "points") Integer points,
                                      @RequestParam(value = "answers") List<String> answers,
                                      @RequestParam(value = "correctAnswers") List<String> correctAnswers){
-        questionService.createQuestion(closedQuestionDto);
-        return "redirect:/exam/examView";
+        QuestionDto questionDto = questionService.createQuestion(closedQuestionDto);
+        return "redirect:/exam/{examId}/addNewQuestionToExam/" + questionDto.getId();
     }
 }

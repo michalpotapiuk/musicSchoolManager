@@ -1,55 +1,75 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+  <meta charset="UTF-8">
   <title>Formularz</title>
+  <link rel="stylesheet" href="/static/stylesheet.css">
 </head>
 <body>
-<h1>Pytanie zamknięte</h1>
-<form class="container" method="post" action="/questions/saveClosedQuestion" th:object="${question}">
-  <label>Tekst:
-    <input th:field="*{text}" type="text" required>
-  </label>
-  <label>Punktacja:
-    <input th:field="*{points}" type="number" min="0" max="5" required>
-  </label>
-  <h2>Odpowiedzi:</h2>
-  <table id="correctAnswersTable">
-    <tbody>
-    <tr>
-      <td>
-        <label>
-          <input th:field="*{correctAnswers}" type="checkbox" th:value="${question.correctAnswers}" onchange="handleCheckboxChange(this)">
-          <input th:field="*{answers}" type="text" id="answer1" name="odpowiedziTekst" placeholder="Odpowiedź 1">
-        </label>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label>
-          <input th:field="*{correctAnswers}" type="checkbox" th:value="${question.correctAnswers}" onchange="handleCheckboxChange(this)">
-          <input th:field="*{answers}" type="text" id="answer2" name="odpowiedziTekst" placeholder="Odpowiedź 2">
-        </label>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label>
-          <input th:field="*{correctAnswers}" type="checkbox" th:value="${question.correctAnswers}" onchange="handleCheckboxChange(this)">
-          <input th:field="*{answers}" type="text" id="answer3" name="odpowiedziTekst" placeholder="Odpowiedź 3">
-        </label>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label>
-          <input th:field="*{correctAnswers}" type="checkbox" th:value="${question.correctAnswers}" onchange="handleCheckboxChange(this)">
-          <input th:field="*{answers}" type="text" id="answer4" name="odpowiedziTekst" placeholder="Odpowiedź 4" required>
-        </label>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <button type="submit">Utwórz</button>
-</form>
+<div class="container">
+  <h1>Pytanie zamknięte</h1>
+  <form method="post" th:action="@{/questions/{examId}/saveClosedQuestion(examId=${examId})}" th:object="${question}">
+    <label>Tekst:</label>
+    <label>
+      <input th:field="*{text}" type="text" required>
+    </label>
+
+    <label>Punktacja:</label>
+    <label>
+      <input th:field="*{points}" type="number" min="0" max="5" required>
+    </label>
+
+    <h2>Odpowiedzi:</h2>
+    <table id="correctAnswersTable">
+      <tbody>
+      <tr>
+        <td>
+          <label class="checkbox-label">
+            <input class="checkbox-input" th:field="*{correctAnswers}" type="checkbox" th:value="1" onchange="handleCheckboxChange(this)">
+            <input th:field="*{answers}" type="text" id="answer1" name="odpowiedziTekst" placeholder="Odpowiedź 1">
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label class="checkbox-label">
+            <input class="checkbox-input" th:field="*{correctAnswers}" type="checkbox" th:value="2" onchange="handleCheckboxChange(this)">
+            <input th:field="*{answers}" type="text" id="answer2" name="odpowiedziTekst" placeholder="Odpowiedź 2">
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label class="checkbox-label">
+            <input class="checkbox-input" th:field="*{correctAnswers}" type="checkbox" th:value="3" onchange="handleCheckboxChange(this)">
+            <input th:field="*{answers}" type="text" id="answer3" name="odpowiedziTekst" placeholder="Odpowiedź 3">
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label class="checkbox-label">
+            <input class="checkbox-input" th:field="*{correctAnswers}" type="checkbox" th:value="4" onchange="handleCheckboxChange(this)">
+            <input th:field="*{answers}" type="text" id="answer4" name="odpowiedziTekst" placeholder="Odpowiedź 4">
+          </label>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <button type="submit">Utwórz</button>
+  </form>
+</div>
+
+<script>
+  function handleCheckboxChange(checkbox) {
+    var inputText = checkbox.parentElement.querySelector('input[type="text"]');
+    if (checkbox.checked) {
+      checkbox.value = inputText.value;
+    } else {
+      checkbox.value = "";
+    }
+  }
+</script>
 </body>
 </html>

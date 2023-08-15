@@ -3,7 +3,6 @@ package com.example.musicschoolmanager.util;
 import com.example.musicschoolmanager.model.ClosedQuestion;
 import com.example.musicschoolmanager.model.Exam;
 import com.example.musicschoolmanager.model.OpenQuestion;
-import com.example.musicschoolmanager.model.abstracts.Question;
 import com.example.musicschoolmanager.repository.ClosedQuestionRepository;
 import com.example.musicschoolmanager.repository.ExamRepository;
 import com.example.musicschoolmanager.repository.OpenQuestionRepository;
@@ -15,17 +14,12 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class DataLoader implements ApplicationRunner {
 
-    private final QuestionRepository questionRepository;
-    private final OpenQuestionRepository openQuestionRepository;
-    private final ClosedQuestionRepository clodesQuestionRepository;
     private final ExamRepository examRepository;
 
     @Override
@@ -66,8 +60,8 @@ public class DataLoader implements ApplicationRunner {
 
 
         // Zapisywanie danych w bazie danych
-        questionRepository.save(openQuestion);
-        questionRepository.save(closedQuestion);
+//        questionRepository.save(openQuestion);
+//        questionRepository.save(closedQuestion);
         examRepository.save(exam);
 
 

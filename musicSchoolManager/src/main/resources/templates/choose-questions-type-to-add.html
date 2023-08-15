@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+  <title>Stwórz nowy egzamin</title>
+  <link rel="stylesheet" href="/static/stylesheet.css">
+</head>
+<body>
+<div class="container">
+  <h1>Stwórz nowy egzamin</h1>
+  <div class="form-column">
+    <div class="input-label">
+      <label>Kategoria</label>
+      <label th:text="${exam.category}" type="text"></label>
+    </div>
+
+    <div class="input-label">
+      <label>Grupa</label>
+      <label th:text="${exam.instrumentGroup}" type="text"></label>
+    </div>
+
+    <div class="input-label">
+      <label>Termin egzaminu</label>
+      <label th:text="${#temporals.format(exam.examDate, 'yyyy-MM-dd HH:mm:ss')}" type="text"></label>
+    </div>
+  </div>
+  <form th:action="@{/questions/getDatabaseQuestions/{examId} (examId=${examId})}" method="get">
+    <input type="hidden" name="examId" th:value="${examId}" />
+    <button type="submit">Dodaj pytanie z bazy danych</button>
+  </form>
+
+  <form th:action="@{/questions/chooseQuestionType/{examId} (examId=${examId})}" method="get">
+    <input type="hidden" name="examId" th:value="${examId}" />
+    <button type="submit">Dodaj nowe pytanie</button>
+  </form>
+</div>
+</body>
+</html>

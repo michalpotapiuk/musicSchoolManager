@@ -3,20 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Pytania otwarte</title>
+    <link rel="stylesheet" href="/static/stylesheet.css">
 </head>
 <body>
-<h1>Pytania z bazy danych</h1>
-<h2>Wybierz pytanie:</h2>
-<form th:action="@{/exam/{examId}/addQuestionToExam(examId=${examId})}" method="post">
-    <ul class="question-list">
-        <li th:each="question : ${question}">
-            <label>
-                <input type="checkbox" name="selectedQuestions" th:value="${question.id}"  />
-                <span th:text="${question.text}"></span>
-            </label>
-        </li>
-    </ul>
-    <button type="submit" name="addQuestion" value="true">Dodaj pytanie</button>
-</form>
+<div class="container">
+    <h1>Pytania z bazy danych</h1>
+    <h2>Wybierz pytanie:</h2>
+    <form th:action="@{/exam/{examId}/addQuestionToExam(examId=${examId})}" method="post">
+        <ul class="question-list">
+            <li th:each="question : ${question}">
+                <label class="checkbox-label">
+                    <input class="checkbox-input" type="checkbox" name="selectedQuestions" th:value="${question.id}" />
+                    <span class="checkbox-text" th:text="${question.text}"></span>
+                </label>
+            </li>
+        </ul>
+        <button class="submit-button" type="submit" name="addQuestion" value="true">Dodaj pytanie</button>
+    </form>
+
+    <div th:if="${param.noQuestionsSelected}" class="error-message">
+        <p>Nie wybrano żadnych pytań. Proszę wybrać przynajmniej jedno pytanie.</p>
+    </div>
+</div>
 </body>
 </html>
