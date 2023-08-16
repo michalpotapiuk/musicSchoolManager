@@ -46,9 +46,6 @@ public class ExamController {
 
     @PostMapping("/save")
     public String saveTemplateExam(@ModelAttribute("exam") ExamDto examDto,
-                                   @RequestParam(value = "category") String category,
-                                   @RequestParam(value = "instrumentGroup") String instrumentGroup,
-                                   @RequestParam(value = "examDate") String examDate,
                                    @RequestParam(required = false, defaultValue = "default") String submitButton) {
         ExamDto exam = examService.createExam(examDto);
         if (submitButton.equals("database")) {
@@ -68,13 +65,13 @@ public class ExamController {
             @RequestParam(required = false) Set<Long> selectedQuestions) {
 
         if (selectedQuestions == null || selectedQuestions.isEmpty()) {
-            return "redirect:/exam/examView/" + examId + "?noQuestionsSelected=true";
+            return String.format("redirect:/exam/examView/%s?noQuestionsSelected=true", examId);
         }
 
         ExamDto examDto = examService.findById(examId);
-        Set<QuestionDto> questionDtos = questionService.findAllQuestionsById(selectedQuestions);
+        Set<QuestionDto> questionsDto = questionService.findAllQuestionsById(selectedQuestions);
 
-        examService.addQuestionToExam(examDto, questionDtos);
+        examService.addQuestionToExam(examDto, questionsDto);
 
         return "redirect:/exam/examView/" + examId;
     }
@@ -96,5 +93,4 @@ public class ExamController {
     public String createdExam(){
         return "created-exam";
     }
-
 }

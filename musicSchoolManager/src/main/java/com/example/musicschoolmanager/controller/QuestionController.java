@@ -56,23 +56,16 @@ public class QuestionController {
     }
 
     @PostMapping("/{examId}/saveOpenQuestion")
-    public String saveOpenQuestion(@ModelAttribute("question") OpenQuestionDto openQuestionDto,
-                                   @PathVariable(value = "examId") Long examId,
-                                   @RequestParam(value = "text") String text,
-                                   @RequestParam(value = "points") Integer points,
-                                   @RequestParam(value = "answerKey") String answerKey) {
+    public String saveQuestion(@ModelAttribute("question") OpenQuestionDto openQuestionDto,
+                                   @PathVariable(value = "examId") Long examId) {
         QuestionDto questionDto = questionService.createQuestion(openQuestionDto);
-        return "redirect:/exam/{examId}/addNewQuestionToExam/" + questionDto.getId();
+        return String.format("redirect:/exam/%s/addNewQuestionToExam/%s", examId, questionDto.getId());
     }
 
     @PostMapping("/{examId}/saveClosedQuestion")
-    public String saveClosedQuestion(@ModelAttribute("question") ClosedQuestionDto closedQuestionDto,
-                                     @PathVariable(value = "examId") Long examId,
-                                     @RequestParam(value = "text") String text,
-                                     @RequestParam(value = "points") Integer points,
-                                     @RequestParam(value = "answers") List<String> answers,
-                                     @RequestParam(value = "correctAnswers") List<String> correctAnswers){
+    public String saveQuestion(@ModelAttribute("question") ClosedQuestionDto closedQuestionDto,
+                                     @PathVariable(value = "examId") Long examId){
         QuestionDto questionDto = questionService.createQuestion(closedQuestionDto);
-        return "redirect:/exam/{examId}/addNewQuestionToExam/" + questionDto.getId();
+        return String.format("redirect:/exam/%s/addNewQuestionToExam/%s", examId, questionDto.getId());
     }
 }

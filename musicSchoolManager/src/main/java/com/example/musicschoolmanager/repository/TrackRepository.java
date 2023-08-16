@@ -1,7 +1,0 @@
-package com.example.musicschoolmanager.repository;
-
-import com.example.musicschoolmanager.model.Track;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface TrackRepository extends JpaRepository<Track, Long> {
-}
