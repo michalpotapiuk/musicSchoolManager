@@ -2,9 +2,7 @@ package com.example.musicschoolmanager.model.abstracts;
 
 import com.example.musicschoolmanager.model.Realization;
 import com.example.musicschoolmanager.model.TeacherClasses;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +22,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "AbstractTeacher")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class AbstractTeacher extends Person {
 
     private LocalDate employmentDate;
