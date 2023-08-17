@@ -25,21 +25,12 @@ public class DataLoader implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-//        Teacher teacher1 = new Teacher();
-//        teacher1.setFirstName("Adam");
-//        teacher1.setTeacherTypes(EnumSet.of(TeacherType.GUITAR, TeacherType.DRUM));
-//        //teacher1.setKnowledgeOfMusicalStyles(List.of("AAAA"));
-
         Teacher teacher1 = new Teacher();
         teacher1.setFirstName("Adam");
         teacher1.setTeacherTypes(EnumSet.of(TeacherType.GUITAR, TeacherType.DRUM));
         teacher1.setKnowledgeOfGuitarTechniques(List.of("AAAA"));
 
-
         teacherRepository.save(teacher1);
-
-
-
 
         log.info("Database seed successful");
     }
