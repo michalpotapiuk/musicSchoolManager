@@ -6,6 +6,7 @@ import com.example.musicschoolmanager.model.Exam;
 import com.example.musicschoolmanager.model.abstracts.Question;
 import com.example.musicschoolmanager.repository.ExamRepository;
 import com.example.musicschoolmanager.repository.QuestionRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,7 @@ public class QuestionService {
         return QuestionDtoMapper.toDTOList(questions);
     }
 
+    @Transactional
     public QuestionDto createQuestion(QuestionDto questionDto){
         Question question = QuestionDtoMapper.map(questionDto);
         Question savedQuestion = questionRepository.save(question);

@@ -12,13 +12,13 @@
     <h1>Stwórz nowy egzamin</h1>
     <form method="post" action="/exam/save" th:object="${exam}">
         <label for="category">Kategoria</label>
-        <input th:field="*{category}" name="category" id="category" type="text">
+        <input th:field="*{category}" name="category" id="category" type="text" required>
 
         <label for="instrumentGroup">Grupa</label>
-        <input th:field="*{instrumentGroup}" name="instrumentGroup" id="instrumentGroup" type="text">
+        <input th:field="*{instrumentGroup}" name="instrumentGroup" id="instrumentGroup" type="text" required>
 
         <label for="examDate">Termin egzaminu</label>
-        <input th:field="*{examDate}" name="examDate" id="examDate" type="datetime-local">
+        <input th:field="*{examDate}" name="examDate" id="examDate" type="datetime-local" required>
 
         <button type="submit" name="submitButton" value="database">Dodaj pytanie z bazy danych</button>
         <button type="submit" name="submitButton" value="new">Dodaj nowe pytanie</button>

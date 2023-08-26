@@ -1,6 +1,12 @@
+/* Resetowanie domyślnych styli dla elementów */
+body, h1, h2, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Globalne style */
 body {
     font-family: 'Inter', sans-serif;
-    margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,6 +29,12 @@ h1 {
     padding-bottom: 15px;
 }
 
+h2 {
+    font-size: 20px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
 form label {
     display: block;
     font-size: 16px;
@@ -30,6 +42,7 @@ form label {
     font-weight: bold;
     color: #333;
 }
+
 .form-column {
     display: flex;
     flex-direction: column;
@@ -51,16 +64,7 @@ form label {
 }
 
 form input[type="text"],
-form input[type="number"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    margin-bottom: 15px;
-}
-
-form input[type="text"],
+form input[type="number"],
 form input[type="datetime-local"] {
     width: 100%;
     padding: 10px;
@@ -68,38 +72,24 @@ form input[type="datetime-local"] {
     border-radius: 4px;
     font-size: 16px;
     margin-bottom: 15px;
-
 }
 
 .form-column {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Dodany odstęp między elementami w kolumnie */
+    gap: 10px;
 }
 
 .checkbox-label {
     display: flex;
     align-items: center;
-    gap: 10px; /* Dodany odstęp między checkboxem a polem tekstowym */
+    gap: 10px;
 }
 
 .checkbox-input {
     width: 20px;
     height: 20px;
-    /* Dodaj wycentrowanie */
     display: inline-flex;
     align-items: center;
     justify-content: center;
-}
-
-form input[type="text"],
-form input[type="number"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    margin-bottom: 15px;
 }
 
 form button[type="submit"] {
@@ -116,4 +106,8 @@ form button[type="submit"] {
 
 form button[type="submit"]:hover {
     background-color: #cecece;
+}
+
+.checkbox-text {
+    font-weight: normal;
 }
