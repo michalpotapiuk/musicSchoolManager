@@ -1,1 +1,3 @@
 # masujemy
+
+passed 85%
